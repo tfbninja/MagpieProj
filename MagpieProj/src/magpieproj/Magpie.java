@@ -16,25 +16,49 @@ public class Magpie {
     }
 
     /**
-     * Gives a response to a user statement
+     * Gives a response to a user stmt
      *
-     * @param statement
-     * the user statement
+     * @param stmt
+     * the user stmt
      * @return a response based on the rules given
      */
-    public String getResponse(String statement) {
-        String response = "";
-        if (statement.indexOf("no") >= 0) {
-            response = "Why so negative?";
-        } else if (statement.indexOf("mother") >= 0
-                || statement.indexOf("father") >= 0
-                || statement.indexOf("sister") >= 0
-                || statement.indexOf("brother") >= 0) {
-            response = "Tell me more about your family.";
+    public String getResponse(String stmt) {
+        stmt = stmt.toLowerCase().trim();
+        String response = getRandomResponse();
+        if (stmt.length() >= 1) {
+            if (contains(stmt, "no") || contains(stmt, "not")) {
+                response = "Why so negative?";
+            } else if (contains(stmt, "mother")
+                    || contains(stmt, "father")
+                    || contains(stmt, "sister")
+                    || contains(stmt, "brother")) {
+                response = "Tell me more about your family.";
+            } else if (contains(stmt, "dog") || contains(stmt, "cat")) {
+                response = "Tell me more about your pets.";
+            } else if (contains(stmt, "kranz")) {
+                response = "Wow he sounds like a great teacher.";
+            } else if (contains(stmt, "sun")
+                    || contains(stmt, "cloud")
+                    || contains(stmt, "rain")) {
+                response = "I am immune to weather.";
+            }
         } else {
-            response = getRandomResponse();
+            response = "Please say something.";
         }
+
         return response;
+    }
+
+    private boolean contains(String parent, String str) {
+        char post = ' ';
+        if (parent.length() > parent.indexOf(str) + str.length()) {
+            post = parent.charAt(parent.indexOf(str) + str.length());
+        } else if (parent.length() > str.length()) {
+            return parent.contains(" " + str);
+        } else if (parent.indexOf(str) == 0 && parent.length() == str.length()) {
+            return true;
+        }
+        return parent.contains(str) && post == ' ' || post == '.' || post == ',' || post == '\'' || post == '\"';
     }
 
     /**
@@ -48,14 +72,21 @@ public class Magpie {
         int whichResponse = (int) (r * NUMBER_OF_RESPONSES);
         String response = "";
 
-        if (whichResponse == 0) {
-            response = "Interesting, tell me more.";
-        } else if (whichResponse == 1) {
-            response = "Hmmm.";
-        } else if (whichResponse == 2) {
-            response = "Do you really think so?";
-        } else if (whichResponse == 3) {
-            response = "You don't say.";
+        switch (whichResponse) {
+            case 0:
+                response = "Interesting, tell me more.";
+                break;
+            case 1:
+                response = "Hmmm.";
+                break;
+            case 2:
+                response = "Do you really think so?";
+                break;
+            case 3:
+                response = "You don't say.";
+                break;
+            default:
+                break;
         }
 
         return response;
