@@ -37,6 +37,10 @@ public class Magpie {
                 response = "Tell me more about your pets.";
             } else if (contains(stmt, "kranz")) {
                 response = "Wow he sounds like a great teacher.";
+            } else if (contains(stmt, "i want") && stmt.length() > 7) {
+                response = "Would you really be happy if you had " + stmt.substring(stmt.indexOf("i want ") + 7);
+            } else if (contains(stmt, "i") && contains(stmt, "you") && stmt.indexOf("you") > stmt.indexOf("i")) {
+                response = "Why do you" + stmt.substring(stmt.indexOf("i") + 1, stmt.indexOf("you")) + "me?";
             } else if (contains(stmt, "sun")
                     || contains(stmt, "cloud")
                     || contains(stmt, "rain")) {
@@ -67,7 +71,7 @@ public class Magpie {
      * @return a non-committal string
      */
     private String getRandomResponse() {
-        final int NUMBER_OF_RESPONSES = 4;
+        final int NUMBER_OF_RESPONSES = 5;
         double r = Math.random();
         int whichResponse = (int) (r * NUMBER_OF_RESPONSES);
         String response = "";
@@ -85,6 +89,8 @@ public class Magpie {
             case 3:
                 response = "You don't say.";
                 break;
+            case 4:
+                response = "Interesting..";
             default:
                 break;
         }
