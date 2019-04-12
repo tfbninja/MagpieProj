@@ -71,7 +71,7 @@ public class Magpie {
      * @return a non-committal string
      */
     private String getRandomResponse() {
-        final int NUMBER_OF_RESPONSES = 5;
+        final int NUMBER_OF_RESPONSES = 6;
         double r = Math.random();
         int whichResponse = (int) (r * NUMBER_OF_RESPONSES);
         String response = "";
@@ -91,6 +91,8 @@ public class Magpie {
                 break;
             case 4:
                 response = "Interesting..";
+            case 5:
+                response = "Subscribe to PewDiePie!";
             default:
                 break;
         }
